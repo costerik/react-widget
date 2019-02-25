@@ -6,7 +6,11 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <Widget url="social-url" interval={5000} posts={10} />
+        <Widget
+          url="http://api.massrelevance.com/MassRelDemo/all-networks.json?network=facebook"
+          interval={5000}
+          posts={10}
+        />
       </div>
     );
   }
