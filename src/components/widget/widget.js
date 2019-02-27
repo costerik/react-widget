@@ -57,20 +57,24 @@ export default class Widget extends PureComponent {
         <div className="widget--title">Posts </div>
         <div className="widget--content">
           {data &&
-            data.map(post =>
-              // TwitterCard(Card, cuid(), {
-              // authorName: post.user.name,
-              // profileImage: post.user.profile_image_url,
-              // messageBody: post.text,
-              // postDate: post.created_at,
+            data.map(
+              post =>
+                TwitterCard(Card, cuid(), {
+                  authorName: post.user.name,
+                  profileImage: post.user.profile_image_url,
+                  messageBody: post.text,
+                  postDate: post.created_at,
+                  screenName: post.user.screen_name,
+                  idStr: post.id_str,
+                  entities: post.entities,
+                })
+              // FacebookCard(Card, cuid(), {
+              // authorName: post.from.name,
+              // avatarId: post.from.id,
+              // messageBody: post.message,
+              // postDate: post.created_time,
+              // facebookId: post.facebook_id.split('_')[1],
               // })
-              FacebookCard(Card, cuid(), {
-                authorName: post.from.name,
-                avatarId: post.from.id,
-                messageBody: post.message,
-                postDate: post.created_time,
-                facebookId: post.facebook_id.split('_')[1],
-              })
             )}
         </div>
       </div>

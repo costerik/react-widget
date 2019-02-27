@@ -37,10 +37,11 @@ const Card = ({
 Card.propTypes = {
   postDate: PropTypes.string.isRequired,
   authorName: PropTypes.string.isRequired,
-  messageBody: PropTypes.string.isRequired,
+  messageBody: PropTypes.element.isRequired,
   profilePicture: PropTypes.string.isRequired,
   profileUser: PropTypes.string.isRequired,
-  linktoPost: PropTypes.string.isRequired,
+  linkToPost: PropTypes.string.isRequired,
+  children: PropTypes.func.isRequired,
 };
 
 Card.defaultProps = {};

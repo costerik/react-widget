@@ -1,2 +1,12 @@
 .twitter-card {
+  width: 100%;
+  margin: 10px;
+  .wrapper-twitter-logo {
+    position: relative;
+    height: 40px;
+    .twitter-logo {
+      position: absolute;
+      right: 0;
+    }
+  }
 }

@@ -7,7 +7,7 @@ class App extends Component {
     return (
       <div className="App">
         <Widget
-          url="http://api.massrelevance.com/MassRelDemo/all-networks.json?network=facebook"
+          url="http://api.massrelevance.com/MassRelDemo/all-networks.json?network=twitter"
           interval={60000}
           posts={10}
         />
