@@ -8,6 +8,8 @@ import FacebookCard from '../facebookCard';
 import TwitterCard from '../twitterCard';
 import api from '../../service';
 
+import { socialNetwork } from '../../utilities/helpers';
+
 import './widget.styles.scss';
 
 export default class Widget extends PureComponent {
@@ -49,33 +51,52 @@ export default class Widget extends PureComponent {
     await new Promise(resolve => this.setState({ data: result, loading: false }, () => resolve()));
   };
 
+  populateData = (url, data) => {
+    switch (socialNetwork(url)) {
+      case 'facebook':
+        return data.map(post =>
+          FacebookCard(Card, cuid(), {
+            authorName: post.from.name,
+            avatarId: post.from.id,
+            messageBody: post.message,
+            postDate: post.created_time,
+            facebookId: post.facebook_id.split('_')[1],
+          })
+        );
+      case 'twitter':
+        return data.map(post =>
+          TwitterCard(Card, cuid(), {
+            authorName: post.user.name,
+            profileImage: post.user.profile_image_url,
+            messageBody: post.text,
+            postDate: post.created_at,
+            screenName: post.user.screen_name,
+            idStr: post.id_str,
+            entities: post.entities,
+          })
+        );
+      case 'instagram':
+        break;
+      case 'google_plus':
+        break;
+      case 'rss':
+        break;
+      default:
+        break;
+    }
+  };
+
   render() {
+    const { populateData } = this;
     const { data, loading } = this.state;
+    const { url } = this.props;
 
     return (
       <div className="widget">
-        <div className="widget--title">Posts </div>
         <div className="widget--content">
-          {data &&
-            data.map(
-              post =>
-                TwitterCard(Card, cuid(), {
-                  authorName: post.user.name,
-                  profileImage: post.user.profile_image_url,
-                  messageBody: post.text,
-                  postDate: post.created_at,
-                  screenName: post.user.screen_name,
-                  idStr: post.id_str,
-                  entities: post.entities,
-                })
-              // FacebookCard(Card, cuid(), {
-              // authorName: post.from.name,
-              // avatarId: post.from.id,
-              // messageBody: post.message,
-              // postDate: post.created_time,
-              // facebookId: post.facebook_id.split('_')[1],
-              // })
-            )}
+          <div className="widget--loading">{loading && <span role="img">🤔</span>} </div>
+          <div className="widget--title">Posts</div>
+          {data && !!data.length ? populateData(url, data) : <div> {'No posts 😕'} </div>}
         </div>
       </div>
     );
