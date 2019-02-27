@@ -1,0 +1,33 @@
+.card {
+  border-radius: 10px;
+  background-color: rgba(242, 232, 232, 0.2);
+  padding: 20px;
+  width: 80%;
+  margin: 0 auto;
+  &--wrapper-author {
+    display: flex;
+    align-items: center;
+    &--name {
+      text-decoration: none;
+      color: #365899;
+      p {
+        display: inline-block;
+        margin: 0 0 0 10px;
+      }
+    }
+  }
+
+  &--content {
+    &--message-container {
+      color: rgba(0, 0, 0, 0.7);
+    }
+
+    &--date {
+      color: #365899;
+      text-decoration: none;
+      p {
+        display: inline-block;
+      }
+    }
+  }
+}

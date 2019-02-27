@@ -4,6 +4,7 @@ import { isURL } from 'validator';
 import cuid from 'cuid';
 
 import Card from '../card';
+import FacebookCard from '../facebookCard';
 import api from '../../service';
 
 import './widget.styles.scss';
@@ -27,10 +28,11 @@ export default class Widget extends PureComponent {
 
   internalInterval = null;
 
-  componentDidMount() {
+  async componentDidMount() {
     const { props, requestsData } = this;
     const { interval, url } = props;
     if (isURL(url.trim())) {
+      await requestsData();
       this.internalInterval = setInterval(requestsData, interval);
     }
   }
@@ -47,22 +49,22 @@ export default class Widget extends PureComponent {
   };
 
   render() {
-    const { url, interval, posts } = this.props;
     const { data, loading } = this.state;
 
     return (
       <div className="widget">
-        <div className="content">
-          Hello Widget {url} {interval} {posts}
+        <div className="widget--title">Posts </div>
+        <div className="widget--content">
           {data &&
-            data.map(post => (
-              <Card
-                key={cuid()}
-                authorName={post.from.name}
-                messageBody={post.message}
-                postDate={post.created_time}
-              />
-            ))}
+            data.map(post =>
+              FacebookCard(Card, cuid(), {
+                authorName: post.from.name,
+                avatarId: post.from.id,
+                messageBody: post.message,
+                postDate: post.created_time,
+                facebookId: post.facebook_id.split('_')[1],
+              })
+            )}
         </div>
       </div>
     );

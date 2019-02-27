@@ -8,7 +8,7 @@ class App extends Component {
       <div className="App">
         <Widget
           url="http://api.massrelevance.com/MassRelDemo/all-networks.json?network=facebook"
-          interval={5000}
+          interval={60000}
           posts={10}
         />
       </div>

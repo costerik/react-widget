@@ -1,0 +1,12 @@
+.facebook-card {
+  width: 100%;
+  margin: 10px;
+  .wrapper-facebook-logo {
+    position: relative;
+    height: 40px;
+    .facebook-logo {
+      position: absolute;
+      right: 0;
+    }
+  }
+}
