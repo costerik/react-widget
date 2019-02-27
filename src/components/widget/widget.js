@@ -5,6 +5,7 @@ import cuid from 'cuid';
 
 import Card from '../card';
 import FacebookCard from '../facebookCard';
+import TwitterCard from '../twitterCard';
 import api from '../../service';
 
 import './widget.styles.scss';
@@ -57,6 +58,12 @@ export default class Widget extends PureComponent {
         <div className="widget--content">
           {data &&
             data.map(post =>
+              // TwitterCard(Card, cuid(), {
+              // authorName: post.user.name,
+              // profileImage: post.user.profile_image_url,
+              // messageBody: post.text,
+              // postDate: post.created_at,
+              // })
               FacebookCard(Card, cuid(), {
                 authorName: post.from.name,
                 avatarId: post.from.id,
